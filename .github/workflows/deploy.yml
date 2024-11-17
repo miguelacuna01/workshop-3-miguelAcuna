@@ -50,7 +50,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          aws lambda update-function-code --function-name aplicationServerlessMiguelAcuna --zip-file fileb://function.zip
+          aws lambda update-function-code --function-name workshop-3-miguelAcuna --zip-file fileb://function.zip
 
 # Job de notificación en caso de fallo
 notify_failure:
