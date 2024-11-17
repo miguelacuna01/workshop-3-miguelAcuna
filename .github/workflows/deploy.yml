@@ -50,7 +50,9 @@ deploy:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          aws lambda update-function-code --function-name aplicationServerlessMiguelAcuna --zip-file fileb://function.zip  notify_failure:
+          aws lambda update-function-code --function-name aplicationServerlessMiguelAcuna --zip-file fileb://function.zip
+
+notify_failure:
     runs-on: ubuntu-latest
     needs: [test, deploy] # Se ejecuta después de ambos jobs
     if: ${{ failure() }} # Solo se ejecuta si cualquiera de los jobs anteriores falla
