@@ -50,12 +50,16 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          aws lambda update-function-code --function-name workshop-3-miguelAcuna --zip-file fileb://function.zip
+          if [ -z "$AWS_REGION" ]; then
+            echo "AWS_REGION is not set, using default region us-east-1"
+            AWS_REGION="us-east-1"
+          fi
+          aws lambda update-function-code --function-name workshop-3-miguelAcuna --zip-file fileb://function.zip --region $AWS_REGION
 
   notify_failure:
     runs-on: ubuntu-latest
     needs: [test, deploy] # Se ejecuta después de ambos jobs
-    if: failure() # Solo se ejecuta si cualquiera de los jobs anteriores falla
+    if: ${{ failure() }} # Solo se ejecuta si cualquiera de los jobs anteriores falla
     steps:
       - name: Send email notification on failure
         env:
